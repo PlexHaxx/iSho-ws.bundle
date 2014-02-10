@@ -70,7 +70,7 @@ def Seasons(title, thumb, video_id, show_id):
 
 	for season in html.xpath('//button[@name="season"]/text()'):
 		oc.add(DirectoryObject(
-			key = Callback(Episodes, title=season, show_id=show_id, season=season.split(' ')[-1]),
+			key = Callback(Episodes, title=season, thumb=thumb, show_id=show_id, season=season.split(' ')[-1]),
 			title = season,
 			thumb = Resource.ContentsOfURLWithFallback(url=thumb, fallback='icon-default.jpg')
 		))
@@ -79,7 +79,7 @@ def Seasons(title, thumb, video_id, show_id):
 
 ####################################################################################################
 @route('/video/ishows/episodes/{show_id}/{season}')
-def Episodes(title, show_id, season):
+def Episodes(title, thumb, show_id, season):
 
 	oc = ObjectContainer()
 
@@ -91,12 +91,14 @@ def Episodes(title, show_id, season):
 	for episode in html.xpath('//div[@class="cae"]'):
 		video_id = episode.xpath('./div[@class="aag"]/@id')[0].split('-')[-1]
 		title = episode.xpath('./div[@class="cac"]/text()')[0]
+		title = String.DecodeHTMLEntities(title).replace("\\'", "'")
 		index = episode.xpath('.//div[@class="cad"]/text()')[0].split(' ')[-1]
 
 		oc.add(CreateEpisodeObject(
 			show_id = show_id,
 			video_id = video_id,
 			title = title,
+			thumb = thumb,
 			season = season,
 			index = index
 		))
@@ -105,12 +107,13 @@ def Episodes(title, show_id, season):
 
 ####################################################################################################
 @route('/video/ishows/createepisodeobject', include_container=bool)
-def CreateEpisodeObject(show_id, video_id, title, season, index, include_container=False):
+def CreateEpisodeObject(show_id, video_id, title, thumb, season, index, include_container=False):
 
 	episode_obj = EpisodeObject(
-		key = Callback(CreateEpisodeObject, show_id=show_id, video_id=video_id, title=title, season=season, index=index, include_container=True),
+		key = Callback(CreateEpisodeObject, show_id=show_id, video_id=video_id, title=title, thumb=thumb, season=season, index=index, include_container=True),
 		rating_key = PLAY_VIDEO_URL % video_id,
 		title = title,
+		thumb = thumb,
 		season = int(season),
 		index = int(index),
 		items = [
