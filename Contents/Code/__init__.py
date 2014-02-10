@@ -92,7 +92,7 @@ def Episodes(title, thumb, show_id, season):
 		video_id = episode.xpath('./div[@class="aag"]/@id')[0].split('-')[-1]
 		title = episode.xpath('./div[@class="cac"]/text()')[0]
 		title = String.DecodeHTMLEntities(title).replace("\\'", "'")
-		index = episode.xpath('.//div[@class="cad"]/text()')[0].split(' ')[-1]
+		index = episode.xpath('.//div[@class="cad"]/text()')[0].split(' ')[-1].split('-')[0]
 
 		oc.add(CreateEpisodeObject(
 			show_id = show_id,
