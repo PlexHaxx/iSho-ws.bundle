@@ -81,7 +81,7 @@ def Seasons(title, thumb, video_id, show_id):
 @route('/video/ishows/episodes/{show_id}/{season}')
 def Episodes(title, thumb, show_id, season):
 
-	oc = ObjectContainer()
+	oc = ObjectContainer(title2=title)
 
 	data = HTTP.Request(SEASON_URL % (show_id, season)).content
 	data = '<div>%s</div>' % data
