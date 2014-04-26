@@ -1,5 +1,5 @@
-NAME = 'iSho.ws'
-BASE_URL = 'http://isho.ws'
+NAME = 'iShows'
+BASE_URL = 'http://ishows.tv'
 
 VIDEO_URL = '%s/video?v=%%s' % BASE_URL
 SHOWS_URL = '%s/?aj=home&pg=%%d' % BASE_URL
@@ -20,7 +20,7 @@ def Start():
 
 	HTTP.CacheTime = CACHE_1DAY
 	HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (iPad; CPU OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B329 Safari/8536.25'
-	HTTP.Headers['Referer'] = 'http://isho.ws/'
+	HTTP.Headers['Referer'] = 'http://ishows.tv/'
 
 ####################################################################################################
 @handler('/video/ishows', NAME, thumb=ICON, art=ART)
