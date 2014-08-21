@@ -145,7 +145,7 @@ def PlayVideo(show_id, video_id):
 	data = RE_AMPERSAND.sub('&amp;', data)
 
 	html = HTML.ElementFromString(data)
-	video_url = html.xpath('//a[contains(@href, ".mp4")]/@href')
+	video_url = html.xpath('//a[contains(@href, "download.php")]/@href')
 
 	if len(video_url) < 1:
 		raise Ex.MediaNotAvailable
