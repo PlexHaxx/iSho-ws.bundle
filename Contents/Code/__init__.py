@@ -109,7 +109,6 @@ def Episodes(title, thumb, show_id, season):
 @route('/video/ishows/createepisodeobject', include_container=bool)
 def CreateEpisodeObject(show_id, video_id, title, thumb, season, index, include_container=False):
 
-	#episode_obj = EpisodeObject(
 	episode_obj = VideoClipObject(
 		key = Callback(CreateEpisodeObject, show_id=show_id, video_id=video_id, title=title, thumb=thumb, season=season, index=index, include_container=True),
 		rating_key = PLAY_VIDEO_URL % video_id,
