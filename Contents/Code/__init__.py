@@ -109,13 +109,12 @@ def Episodes(title, thumb, show_id, season):
 @route('/video/ishows/createepisodeobject', include_container=bool)
 def CreateEpisodeObject(show_id, video_id, title, thumb, season, index, include_container=False):
 
-	episode_obj = EpisodeObject(
+	#episode_obj = EpisodeObject(
+	episode_obj = VideoClipObject(
 		key = Callback(CreateEpisodeObject, show_id=show_id, video_id=video_id, title=title, thumb=thumb, season=season, index=index, include_container=True),
 		rating_key = PLAY_VIDEO_URL % video_id,
 		title = title,
 		thumb = thumb,
-		season = int(season),
-		index = int(index),
 		items = [
 			MediaObject(
 				parts = [
@@ -150,4 +149,13 @@ def PlayVideo(show_id, video_id):
 	if len(video_url) < 1:
 		raise Ex.MediaNotAvailable
 
-	return IndirectResponse(VideoClipObject, key=video_url[0])
+	video_url = video_url[0].replace('download.php', 'video.php')
+
+	return IndirectResponse(VideoClipObject, key=video_url)
+
+####################################################################################################
+# Quick and dirty fix for PHT requesting extras for online content and throwing errors
+@route('/video/ishows/createepisodeobject/extras')
+def Extras():
+
+	return None
