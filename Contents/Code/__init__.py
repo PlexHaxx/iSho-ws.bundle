@@ -122,6 +122,7 @@ def CreateEpisodeObject(show_id, video_id, title, thumb, season, index, include_
 				container = Container.MP4,
 				video_codec = VideoCodec.H264,
 				video_resolution = 'sd',
+				aspect_ratio = 16/9,
 				audio_codec = AudioCodec.AAC,
 				audio_channels = 2,
 				optimized_for_streaming = True
@@ -135,6 +136,7 @@ def CreateEpisodeObject(show_id, video_id, title, thumb, season, index, include_
 		return episode_obj
 
 ####################################################################################################
+@route('/video/ishows/playvideo')
 @indirect
 def PlayVideo(show_id, video_id):
 
